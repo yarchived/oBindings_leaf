@@ -1,0 +1,3 @@
+[submodule "oBindings"]
+	path = oBindings
+	url = git://github.com/haste/oBindings.git
