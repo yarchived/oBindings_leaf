@@ -17,10 +17,21 @@ local druidbase = {
     F5 = 'm|/click yDruidFrameMoonkinOrTree',
 }
 
-if(select(2, UnitClass'player') == 'DRUID') then
-    for i = 1, 3 do
-        local _, talent_name = GetTalentTabInfo(i)
-        oBindings:RegisterKeyBindings(talent_name, movement, druidbase)
+local LOAD = function()
+    local KLASS = select(2, UnitClass'player')
+    if(KLASS == 'DRUID') then
+        for i = 1, 3 do
+            local _, talent_name = GetTalentTabInfo(i)
+            oBindings:RegisterKeyBindings(talent_name, movement, druidbase)
+        end
     end
 end
+
+local f = CreateFrame'Frame'
+f:RegisterEvent'PLAYER_LOGIN'
+f:SetScript('OnEvent', function(self)
+    pcall(LOAD)
+
+    self:UnregisterAllEvents()
+end)
 
