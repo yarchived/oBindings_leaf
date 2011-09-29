@@ -10,11 +10,11 @@ local movement = {
 }
 
 local druidbase = {
-    F1 = 'm|CLICK yDruidFrameBear:LeftButton',
-    F2 = 'm|CLICK yDruidFrameSmart:LeftButton',
-    F3 = 'm|CLICK yDruidFrameCat:LeftButton',
-    F4 = 'm|CLICK yDruidFrameUMOUNT:LeftButton',
-    F5 = 'm|CLICK yDruidFrameMoonkinOrTree:LeftButton',
+    F1 = 'm|/click yDruidFrameBear',
+    F2 = 'm|/click yDruidFrameSmart',
+    F3 = 'm|/click yDruidFrameCat',
+    F4 = 'm|/click yDruidFrameUMOUNT',
+    F5 = 'm|/click yDruidFrameMoonkinOrTree',
 }
 
 if(select(2, UnitClass'player') == 'DRUID') then
