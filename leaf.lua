@@ -26,7 +26,7 @@ local function load_bindings()
         for i = 1, 3 do
             local _, talent = GetTalentTabInfo(i)
             if(talent) then
-                oBindings:RegisterKeyBindings(talent_name, bindings.base, bindings.druid)
+                oBindings:RegisterKeyBindings(talent, bindings.base, bindings.druid)
                 loaded = true
             end
         end
