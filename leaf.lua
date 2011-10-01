@@ -21,6 +21,7 @@ bindings.druid = {
 local loaded = false
 local function load_bindings()
     local class = select(2, UnitClass'player')
+
     if(class == 'DRUID') then
         for i = 1, 3 do
             local _, talent = GetTalentTabInfo(i)
@@ -29,6 +30,10 @@ local function load_bindings()
                 loaded = true
             end
         end
+    end
+
+    if(loaded) then
+        oBindings:ACTIVE_TALENT_GROUP_CHANGED()
     end
 end
 
