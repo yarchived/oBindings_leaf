@@ -5,5 +5,9 @@
 
 oBindings\bindings.lua
 
+base.lua
+druid.lua
+priest.lua
+
 leaf.lua
 
