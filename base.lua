@@ -18,7 +18,7 @@ local base = {
     F8 = 'FOCUSTARGET',
     F9 = open_chat'g',
     F10 = open_chat'5',
-    F11 = open_chat's'
+    F11 = open_chat's',
     F12 = [[m|/run local i,t,c=IsInInstance();c=(i and t=='pvp')and'/bg 'or(GetRealNumRaidMembers()>0)and'/ra 'and(GetRealNumPartyMembers()>0)and'/p 'or'/s ';ChatFrame_OpenChat(c)]],
 
     alt = {
