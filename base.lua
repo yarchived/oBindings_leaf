@@ -29,6 +29,8 @@ local base = {
     },
 
     ctrl = {
+        ['['] = 'TOGGLEGAMEMENU', -- esc is just too far away
+
         F9  = open_chat'o',
         F10 = open_chat'6',
         F11 = open_chat'rw',
