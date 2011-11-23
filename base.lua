@@ -1,4 +1,6 @@
 
+-- i use hhkb, so there's some odd bindings here
+
 local _NAME, _NS = ...
 _NS.CLASS = select(2, UnitClass'player')
 
@@ -29,19 +31,26 @@ local base = {
     },
 
     ctrl = {
-        ['['] = 'TOGGLEGAMEMENU', -- esc is just too far away
-
         F9  = open_chat'o',
         F10 = open_chat'6',
         F11 = open_chat'rw',
         F12 = open_chat'ra',
+
+        ['['] = 'TOGGLEGAMEMENU',
     },
 
     shift = {
         F10 = open_chat'8',
         F11 = open_chat'y',
         F12 = open_chat'p',
+
+        BACKSPACE  = 'SCREENSHOT',
     },
+
+    ['ctrl-alt'] = {
+        ['MOUSEWHEELUP'] = 'CAMERAZOOMIN',
+        ['MOUSEWHEELDOWN'] = 'CAMERAZOOMOUT',
+    }
 }
 
 _NS.BASE = base
