@@ -9,5 +9,7 @@ base.lua
 druid.lua
 priest.lua
 
+global.lua
+
 leaf.lua
 
