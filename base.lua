@@ -3,12 +3,14 @@
 
 local _NAME, _NS = ...
 _NS.CLASS = select(2, UnitClass'player')
+_NS.ybindings = {}
+_NS.globalbindings = {}
 
 local open_chat = function(key)
     return ('m|/run ChatFrame_OpenChat"/%s" '):format(key)
 end
 
-local base = {
+_NS.ybindings.BASE = {
     -- base movement
     W = 'MOVEFORWARD',
     S = 'MOVEBACKWARD',
@@ -52,6 +54,4 @@ local base = {
         ['MOUSEWHEELDOWN'] = 'CAMERAZOOMOUT',
     }
 }
-
-_NS.BASE = base
 

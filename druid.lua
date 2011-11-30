@@ -16,7 +16,7 @@ for k, v in next, spells do
     spells[k] = GetSpellInfo(v)
 end
 
-_NS.DRUID = {
+_NS.ybindings.DRUID = {
     F1 = 'm|/cast ' ..spells.Bear,
     --F2 = 'm|/click yDruidFrameSmart',
     F2 = 'm|/stopmacro [flying,combat]' ..
@@ -32,3 +32,8 @@ _NS.DRUID = {
     F5 = 'm|/cast '..spells.Moonkin..'\n/cast '..spells.Tree,
 }
 
+_NS.globalbindings.DRUID = {
+    ctrl = {
+        [4] = 's|48438',
+    },
+}

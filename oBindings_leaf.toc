@@ -4,12 +4,11 @@
 ## Notes: Binding management for mad people.
 
 oBindings\bindings.lua
+global.lua
 
 base.lua
 druid.lua
 priest.lua
-
-global.lua
 
 leaf.lua
 
