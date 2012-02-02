@@ -11,3 +11,6 @@ function oBindings:PLAYER_TALENT_UPDATE(event)
     return event and self:UnregisterEvent(event)
 end
 
+-- deal with EnableAddOn()/LoadAddOn()
+if(IsLoggedIn()) then oBindings:PLAYER_TALENT_UPDATE'PLAYER_TALENT_UPDATE' end
+
