@@ -3,6 +3,10 @@
 ## Author: Haste
 ## Notes: Binding management for mad people.
 
+LibMounts-1.0\LibMounts-1.0\Data.lua
+LibMounts-1.0\LibMounts-1.0\LibMounts-1.0.lua
+mount.lua
+
 oBindings\bindings.lua
 global.lua
 

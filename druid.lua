@@ -25,7 +25,7 @@ _NS.ybindings.DRUID = {
         ';[flyable,nocombat]!'.. spells.SwiftFlight ..
         '\n/stopmacro [combat][mounted][flyable]' ..
         '\n/cancelform' ..
-        (SlashCmdList.NORU_MOUNT and '\n/noru' or '') ..
+        '\n/mount' ..
         '\n/cast '..spells.Travel,
     F3 = 'm|/cast ' ..spells.Cat,
     F4 = 'm|/dismount\n/cancelform',
