@@ -59,9 +59,9 @@ local in_the_list = function(item, list)
     end
 end
 
-local bit_and = function(a, b)
+local has_flag = function(a, b)
     if(a and b) then
-        return band(a, b) ~= 0
+        return band(a, b) == b
     end
     return true
 end
@@ -88,7 +88,7 @@ local get_mount_list = function(state)
     for i = 1, GetNumCompanions'MOUNT' do
         local creatureID, creatureName, spellid, icon, issummoned,
             mountType = GetCompanionInfo('MOUNT', i)
-        if(bit_and(mountType, flag) and in_the_list(spellid, special_lst)) then
+        if(has_flag(mountType, flag) and in_the_list(spellid, special_lst)) then
             tinsert(list, i)
         end
     end
