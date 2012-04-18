@@ -10,11 +10,11 @@ local FLAG_GROUND = 0x1               -- Ground
 local FLAG_FLY = 0x2               -- Can fly 
 local FLAG_FLOAT = 0x4               -- Floats above ground 
 local FLAG_UNDERWATER = 0x8               -- Underwater 
---local CANJUMP = 0x10              -- Can jump (turtles cannot)
+local FLAG_CANJUMP = 0x10              -- Can jump (turtles cannot)
 
 local SEA_LEGS = GetSpellInfo(73701)
 
-local special = {
+local specialmounts = {
     VASHJIR = {
         [75207] = true, --Abyssal Seahorse
     },
@@ -43,53 +43,77 @@ local get_current_mount_type = function()
 end
 
 local is_empty = function(list)
-    if(list and next(list)) then
-        return false
-    end
-    return true
-end
-
-local in_the_list = function(item, list)
-    if(item and list) then
-        if(list[item]) then
-            return true
-        end
-    else
+    if not (list and next(list)) then
         return true
     end
 end
 
 local has_flag = function(a, b)
-    if(a and b) then
-        return band(a, b) == b
+    return band(a, b) == b
+end
+
+local function mktypechk_by_flag(flag)
+    return function(spellid, type_flag)
+        return has_flag(type_flag, flag)
     end
-    return true
+end
+
+local function mktypechk_by_list(lst)
+    return function(spellid, type_flag)
+        return lst[spellid]
+    end
+end
+
+local statefilter = {}
+
+statefilter.VASHJIR = function(spellid, mountType)
+    return specialmounts.VASHJIR[spellid]
+end
+
+statefilter.AHNQIRAJ = function(spellid, mountType)
+    return specialmounts.AHNQIRAJ[spellid]
+--    if(specialmounts.AHNQIRAJ[spellid] or
+--        statefilter.GROUND(spellid, mountType)) then
+--        return true
+--    end
+end
+
+statefilter.AIR = function(spellid, mountType)
+    return has_flag(mountType, FLAG_FLY)
+end
+
+statefilter.WATER =function(spellid, mountType)
+    if(has_flag(mountType, FLAG_UNDERWATER) and
+        (not has_flag(mountType, FLAG_CANJUMP))
+        ) then
+        return true
+    end
+end
+
+statefilter.GROUND = function(spellid, mountType)
+    if( specialmounts.AHNQIRAJ[spellid]) then return false end
+    if( has_flag(mountType, 0x10101)
+        or (
+            has_flag(mountType, FLAG_GROUND)
+            and not has_flag(mountType, FLAG_FLY)
+        )
+        ) then
+        return true
+    end
 end
 
 local _mount_list = {}
 local get_mount_list = function(state)
     local list = wipe(_mount_list)
-    local flag, special_lst
-    if(state == 'VASHJIR') then
-        -- flag = FLAG_UNDERWATER
-        special_lst = special.VASHJIR
-    elseif(state == 'AHNQIRAJ') then
-        -- flag = FLAG_GROUND
-        special_lst = special.AHNQIRAJ
-    elseif(state == 'AIR') then
-        flag = FLAG_FLY
-    elseif(state == 'GROUND') then
-        flag = FLAG_GROUND
-    --elseif(state == WATER) then
-    end
+    local chk_func = statefilter[state]
 
-    if not(flag or special_lst) then return end
-
-    for i = 1, GetNumCompanions'MOUNT' do
-        local creatureID, creatureName, spellid, icon, issummoned,
+    if(chk_func) then
+        for i = 1, GetNumCompanions'MOUNT' do
+            local creatureID, creatureName, spellid, icon, issummoned,
             mountType = GetCompanionInfo('MOUNT', i)
-        if(has_flag(mountType, flag) and in_the_list(spellid, special_lst)) then
-            tinsert(list, i)
+            if(chk_func(spellid, mountType)) then
+                tinsert(list, i)
+            end
         end
     end
 
@@ -98,7 +122,6 @@ local get_mount_list = function(state)
     end
 end
 
-local filtered_list = {}
 SlashCmdList.LEAF_MOUNT = function()
     if(InCombatLockdown()) then return end
     if(IsMounted()) then return Dismount() end
